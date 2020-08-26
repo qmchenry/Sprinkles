@@ -52,6 +52,22 @@ public struct RGBA {
         [red, green, blue, alpha]
     }
 
+    public func capped() -> Self {
+        func cap(_ value: CGFloat) -> CGFloat {
+            return min(1, max(0, value))
+        }
+        return RGBA(red: cap(red), green: cap(green), blue: cap(blue), alpha: cap(alpha))
+    }
+
+    public var hex: String {
+        let capped = self.capped()
+        return String(format: "%02lX%02lX%02lX%02lX",
+                      lroundf(Float(capped.red) * 255),
+                      lroundf(Float(capped.green) * 255),
+                      lroundf(Float(capped.blue) * 255),
+                      lroundf(Float(capped.alpha) * 255))
+    }
+
     public var cgColor: CGColor? {
         guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
         return CGColor(colorSpace: colorSpace, components: components)
