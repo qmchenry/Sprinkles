@@ -90,5 +90,22 @@ extension UIImage {
         print(colors)
         return UIColor(colors: colors)
     }
+
+    public func crop(to rect: CGRect, viewSize: CGSize) -> UIImage {
+        let cropScale = max(size.width/viewSize.width, size.height/viewSize.height) * scale
+        let cropRect = CGRect(x: rect.origin.x * cropScale,
+                              y: rect.origin.y * cropScale,
+                              width: rect.size.width * cropScale,
+                              height: rect.size.height * cropScale)
+        guard let cropped = cgImage?.cropping(to: cropRect) else {
+            return UIImage()
+        }
+        return UIImage(cgImage: cropped)
+    }
+
+    public func crop(to rect: CGRect?, viewSize: CGSize?) -> UIImage? {
+        guard let rect = rect, let viewSize = viewSize else { return nil }
+        return crop(to: rect, viewSize: viewSize)
+    }
 }
 #endif
