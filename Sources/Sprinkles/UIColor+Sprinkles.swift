@@ -34,6 +34,10 @@ extension UIColor {
         rgba.luminance
     }
 
+    var hex: String {
+        return rgba.hex
+    }
+
     public func contrastRatio(between color: UIColor) -> CGFloat? {
         rgba.contrastRatio(between: color.rgba)
     }

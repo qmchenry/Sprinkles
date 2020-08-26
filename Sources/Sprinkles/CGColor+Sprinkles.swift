@@ -21,16 +21,16 @@ extension CGColor {
     }
 
     public var rgbaCapped: RGBA {
-        let rgba = self.rgba
-        func cap(_ value: CGFloat) -> CGFloat {
-            return min(1, max(0, value))
-        }
-        return RGBA(red: cap(rgba.red), green: cap(rgba.green), blue: cap(rgba.blue), alpha: cap(rgba.alpha))
+        rgba.capped()
     }
 
     public func luminance() -> CGFloat? {
         guard let components = components, components.count >= 2 else { return nil }
         return rgba.luminance
+    }
+
+    var hex: String {
+        return rgba.hex
     }
 
     public func contrastRatio(between color: CGColor) -> CGFloat? {
