@@ -29,7 +29,7 @@ extension CGColor {
         return rgba.luminance
     }
 
-    var hex: String {
+    public var hex: String {
         return rgba.hex
     }
 
