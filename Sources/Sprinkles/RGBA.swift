@@ -48,6 +48,15 @@ public struct RGBA {
         color1.contrastRatio(between: color2)
     }
 
+    public var components: [CGFloat] {
+        [red, green, blue, alpha]
+    }
+
+    public var cgColor: CGColor? {
+        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
+        return CGColor(colorSpace: colorSpace, components: components)
+    }
+
     public static func +(lhs: RGBA, rhs: RGBA) -> RGBA {
         RGBA(red: lhs.red + rhs.red,
              green: lhs.green + rhs.green,
@@ -67,3 +76,14 @@ extension RGBA: Equatable {
         lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha
     }
 }
+
+#if os(iOS)
+import UIKit
+
+extension RGBA {
+    public var uiColor: UIColor {
+        UIColor(rgba: self)
+    }
+}
+
+#endif

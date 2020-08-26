@@ -46,7 +46,7 @@ extension CGColor {
         guard colors.count > 0 else { return nil }
         let sumRGBA = colors.map{ $0.rgba }.reduce(RGBA.zero, +)
         let avgRGBA = sumRGBA / CGFloat(colors.count)
-        return CGColor(red: avgRGBA.red, green: avgRGBA.green, blue: avgRGBA.blue, alpha: avgRGBA.alpha)
+        return avgRGBA.cgColor
     }
 
 }

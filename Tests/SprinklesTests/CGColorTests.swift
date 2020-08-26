@@ -3,12 +3,12 @@ import XCTest
 
 final class CGColorTests: XCTestCase {
 
-    let black = CGColor(srgbRed: 0, green: 0, blue: 0, alpha: 1)
-    let white = CGColor(srgbRed: 1, green: 1, blue: 1, alpha: 1)
-    let red = CGColor(srgbRed: 1, green: 0, blue: 0, alpha: 1)
-    let green = CGColor(srgbRed: 0, green: 1, blue: 0, alpha: 1)
-    let blue = CGColor(srgbRed: 0, green: 0, blue: 1, alpha: 1)
-    let halfGray = CGColor(srgbRed: 0.5, green: 0.5, blue: 0.5, alpha: 1)
+    let black = RGBA(red: 0, green: 0, blue: 0, alpha: 1).cgColor!
+    let white = RGBA(red: 1, green: 1, blue: 1, alpha: 1).cgColor!
+    let red = RGBA(red: 1, green: 0, blue: 0, alpha: 1).cgColor!
+    let green = RGBA(red: 0, green: 1, blue: 0, alpha: 1).cgColor!
+    let blue = RGBA(red: 0, green: 0, blue: 1, alpha: 1).cgColor!
+    let halfGray = RGBA(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor!
 
     func testCGColorLuminance() {
         XCTAssertEqual(white.luminance(), 1)

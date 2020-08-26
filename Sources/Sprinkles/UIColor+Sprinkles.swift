@@ -23,7 +23,11 @@ extension UIColor {
         guard colors.count > 0 else { return nil }
         let sumRGBA = colors.map{ $0.rgba }.reduce(RGBA.zero, +)
         let avgRGBA = sumRGBA / CGFloat(colors.count)
-        self.init(red: avgRGBA.red, green: avgRGBA.green, blue: avgRGBA.blue, alpha: avgRGBA.alpha)
+        self.init(rgba: avgRGBA)
+    }
+
+    public convenience init(rgba: RGBA) {
+        self.init(red: rgba.red, green: rgba.green, blue: rgba.blue, alpha: rgba.alpha)
     }
 
     public func luminance() -> CGFloat {
