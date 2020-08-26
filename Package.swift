@@ -26,6 +26,12 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "SprinklesTests",
-            dependencies: ["Sprinkles"]),
+            dependencies: ["Sprinkles"],
+            resources: [
+                    // Copy Tests/ExampleTests/Resources directories as-is.
+                    // Use to retain directory structure.
+                    // Will be at top level in bundle.
+                    .process("Assets"),
+                  ]),
     ]
 )

@@ -6,10 +6,11 @@
 //  Created by Quinn McHenry on 8/20/20.
 //
 
+#if os(iOS)
 import UIKit
 
 extension UIColor {
-    var rgba: RGBA {
+    public var rgba: RGBA {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
@@ -25,7 +26,12 @@ extension UIColor {
         self.init(red: avgRGBA.red, green: avgRGBA.green, blue: avgRGBA.blue, alpha: avgRGBA.alpha)
     }
 
+    public func luminance() -> CGFloat {
+        rgba.luminance
+    }
+
     public func contrastRatio(between color: UIColor) -> CGFloat? {
         rgba.contrastRatio(between: color.rgba)
     }
 }
+#endif
