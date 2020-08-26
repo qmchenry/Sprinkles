@@ -38,8 +38,28 @@ extension UIColor {
         return rgba.hex
     }
 
+    public func toColorSpace(name: CFString, intent: CGColorRenderingIntent = .defaultIntent) -> UIColor? {
+        guard let colorSpace = CGColorSpace(name: name) else { return nil }
+        return cgColor.converted(to: colorSpace, intent: intent, options: nil)?.uiColor
+    }
+
+    public func toColorSpace(colorSpace: CGColorSpace, intent: CGColorRenderingIntent = .defaultIntent) -> UIColor? {
+        cgColor.converted(to: colorSpace, intent: intent, options: nil)?.uiColor
+    }
+
+    public var srgb: UIColor? {
+        cgColor.toColorSpace(name: CGColorSpace.sRGB)?.uiColor
+    }
+
     public func contrastRatio(between color: UIColor) -> CGFloat? {
         rgba.contrastRatio(between: color.rgba)
     }
 }
+
+extension CGColor {
+    public var uiColor: UIColor {
+        UIColor(cgColor: self)
+    }
+}
+
 #endif

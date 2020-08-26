@@ -33,6 +33,19 @@ extension CGColor {
         return rgba.hex
     }
 
+    public func toColorSpace(name: CFString, intent: CGColorRenderingIntent = .defaultIntent) -> CGColor? {
+        guard let colorSpace = CGColorSpace(name: name) else { return nil }
+        return converted(to: colorSpace, intent: intent, options: nil)
+    }
+
+    public func toColorSpace(colorSpace: CGColorSpace, intent: CGColorRenderingIntent = .defaultIntent) -> CGColor? {
+        converted(to: colorSpace, intent: intent, options: nil)
+    }
+
+    public var srgb: CGColor? {
+        toColorSpace(name: CGColorSpace.sRGB)
+    }
+
     public func contrastRatio(between color: CGColor) -> CGFloat? {
         guard let _ = luminance(), let _ = color.luminance() else { return nil }
         return rgba.contrastRatio(between: color.rgba)
