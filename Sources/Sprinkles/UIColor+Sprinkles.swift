@@ -30,7 +30,7 @@ extension UIColor {
         self.init(red: rgba.red, green: rgba.green, blue: rgba.blue, alpha: rgba.alpha)
     }
 
-    public func luminance() -> CGFloat {
+    public var luminance: CGFloat? {
         rgba.luminance
     }
 

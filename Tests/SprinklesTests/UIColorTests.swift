@@ -12,9 +12,9 @@ final class UIColorTests: XCTestCase {
     let halfGray = RGBA(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).uiColor
 
     func testUIColorLuminance() {
-        XCTAssertEqual(white.luminance(), 1)
-        XCTAssertEqual(black.luminance(), 0)
-        XCTAssertEqual(halfGray.luminance(), 0.215, accuracy: 0.001)
+        XCTAssertEqual(white.luminance, 1)
+        XCTAssertEqual(black.luminance, 0)
+        XCTAssertEqual(halfGray.luminance!, 0.215, accuracy: 0.001)
     }
 
     // values from https://webaim.org/resources/contrastchecker/ and https://contrast-ratio.com

@@ -11,9 +11,9 @@ final class CGColorTests: XCTestCase {
     let halfGray = RGBA(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).cgColor!
 
     func testCGColorLuminance() {
-        XCTAssertEqual(white.luminance(), 1)
-        XCTAssertEqual(black.luminance(), 0)
-        XCTAssertEqual(halfGray.luminance()!, 0.21586050011389923, accuracy: 0.0000001)
+        XCTAssertEqual(white.luminance, 1)
+        XCTAssertEqual(black.luminance, 0)
+        XCTAssertEqual(halfGray.luminance!, 0.21586050011389923, accuracy: 0.0000001)
     }
 
     func testCGColorContrast() {

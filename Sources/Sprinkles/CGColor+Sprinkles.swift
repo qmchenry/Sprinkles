@@ -24,7 +24,7 @@ extension CGColor {
         rgba.capped()
     }
 
-    public func luminance() -> CGFloat? {
+    public var luminance: CGFloat? {
         guard let components = components, components.count >= 2 else { return nil }
         return rgba.luminance
     }
@@ -47,7 +47,7 @@ extension CGColor {
     }
 
     public func contrastRatio(between color: CGColor) -> CGFloat? {
-        guard luminance() != nil, color.luminance() != nil else { return nil }
+        guard luminance != nil, color.luminance != nil else { return nil }
         return rgba.contrastRatio(between: color.rgba)
     }
 
