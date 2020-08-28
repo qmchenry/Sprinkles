@@ -87,7 +87,6 @@ extension UIImage {
             CGPoint(x: xMax, y: yMax)
         ]
         let colors = pixels(at: corners)
-        print(colors)
         return UIColor(colors: colors)
     }
 

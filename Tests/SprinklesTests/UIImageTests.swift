@@ -46,7 +46,6 @@ final class UIImageTests: XCTestCase {
         }
 
         let average = image.averageColor()!
-        print(average)
         XCTAssertEqual(average.rgba, UIColor.white.rgba)
     }
 
@@ -59,7 +58,6 @@ final class UIImageTests: XCTestCase {
     func testUIImageAverageColorWhiteBlack() {
         let image = loadImage(filename: "whiteblack")!
         let average = image.averageColor()!
-        print(average)
 
     }
 

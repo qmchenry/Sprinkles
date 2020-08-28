@@ -41,7 +41,6 @@ public struct RGBA {
         let luminance2 = color.luminance
         let darker = min(luminance1, luminance2)
         let lighter = max(luminance1, luminance2)
-        print("lighter: \(lighter) darker: \(darker) CR: \((lighter + 0.05) / (darker + 0.05))")
         return (lighter + 0.05) / (darker + 0.05)
     }
 

@@ -13,8 +13,6 @@ final class CGColorTests: XCTestCase {
     func testCGColorLuminance() {
         XCTAssertEqual(white.luminance(), 1)
         XCTAssertEqual(black.luminance(), 0)
-        print(halfGray)
-        print(halfGray.luminance()!)
         XCTAssertEqual(halfGray.luminance()!, 0.21586050011389923, accuracy: 0.0000001)
     }
 
