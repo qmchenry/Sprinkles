@@ -14,16 +14,8 @@ extension UIImage {
     }
 
     public func pixels(at points: [CGPoint]) -> [UIColor] {
-        guard let pixelData = cgImage?.dataProvider?.data,
-              let data = CFDataGetBytePtr(pixelData) else { return [] }
-
-        return points.compactMap { point -> UIColor? in
-            let index = Int(size.width * point.y + point.x) * 4
-            return UIColor(red: CGFloat(data[index]) / 255,
-                           green: CGFloat(data[index+1]) / 255,
-                           blue: CGFloat(data[index+2]) / 255,
-                           alpha: CGFloat(data[index+3]) / 255)
-        }
+        guard let cgImage = cgImage else { return [] }
+        return cgImage.pixels(at: points).map { $0.uiColor }
     }
 
     public var allPoints: [CGPoint] {
@@ -35,42 +27,25 @@ extension UIImage {
     }
 
     public func averageColor(rect: CGRect? = nil, colorSpace colorSpaceName: CFString = CGColorSpace.sRGB) -> UIColor? {
-        let rect = rect ?? CGRect(origin: .zero, size: size)
-        guard let bitDepth = cgImage?.bitsPerPixel, bitDepth == 32 || bitDepth == 64 else { return nil }
-        guard let inputImage = CIImage(image: self) else { return nil }
-        guard let space = CGColorSpace(name: colorSpaceName) else { return nil }
+        let resized = resize(CGSize(width: 1, height: 1))
+        return resized?.pixels(at: [.zero]).first?.uiColor
+    }
 
-        let extentVector = CIVector(x: rect.origin.x, y: rect.origin.y, z: rect.size.width, w: rect.size.height)
-        guard let filter = CIFilter(name: "CIAreaAverage",
-                                    parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]),
-            let outputImage = filter.outputImage
-            else { return nil }
+    public func resize(_ size: CGSize) -> CGImage? {
+        guard let image = cgImage else { return nil }
 
-        let format: CIFormat = bitDepth == 32 ? .RGBA8 : .RGBA16
-        let context: CIContext = {
-            var options = [CIContextOption: Any]()
-            options[.workingColorSpace] = space
-            options[.workingFormat] = NSNumber(value: format.rawValue)
-            return CIContext(options: options)
-        }()
+        let context = CGContext(data: nil,
+                                width: Int(size.width),
+                                height: Int(size.height),
+                                bitsPerComponent: image.bitsPerComponent,
+                                bytesPerRow: image.bytesPerRow,
+                                space: image.colorSpace ?? CGColorSpace(name: CGColorSpace.sRGB)!,
+                                bitmapInfo: image.bitmapInfo.rawValue)
+        context?.interpolationQuality = .high
+        context?.draw(image, in: CGRect(origin: .zero, size: size))
 
-        if bitDepth == 64 {
-            var bitmap = [UInt16](repeating: 0, count: 4)
-            context.render(outputImage, toBitmap: &bitmap, rowBytes: 8,
-                           bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: format, colorSpace: space)
-            return UIColor(red: CGFloat(bitmap[0])/65535,
-                           green: CGFloat(bitmap[1])/65535,
-                           blue: CGFloat(bitmap[2])/65535,
-                           alpha: CGFloat(bitmap[3])/65535)
-        } else {
-            var bitmap = [UInt8](repeating: 0, count: 4)
-            context.render(outputImage, toBitmap: &bitmap, rowBytes: 4,
-                           bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: format, colorSpace: space)
-            return UIColor(red: CGFloat(bitmap[0])/255,
-                           green: CGFloat(bitmap[1])/255,
-                           blue: CGFloat(bitmap[2])/255,
-                           alpha: CGFloat(bitmap[3])/255)
-        }
+        guard let scaledImage = context?.makeImage() else { return nil }
+        return scaledImage
     }
 
     public func effectiveBackgroundColor() -> UIColor? {

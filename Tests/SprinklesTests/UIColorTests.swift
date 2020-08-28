@@ -9,7 +9,7 @@ final class UIColorTests: XCTestCase {
     let red = UIColor.red
     let green = UIColor.green
     let blue = UIColor.blue
-    let halfGray = RGBA(red: 0.5, green: 0.5, blue: 0.5, alpha: 1).uiColor
+    let halfGray = RGBA(red: 0x80/255, green: 0x80/255, blue: 0x80/255, alpha: 1.0).uiColor
 
     func testUIColorLuminance() {
         XCTAssertEqual(white.luminance, 1)
