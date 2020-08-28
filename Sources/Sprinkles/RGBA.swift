@@ -6,6 +6,7 @@
 //
 
 import CoreGraphics
+import Foundation
 
 public struct RGBA {
     public let red: CGFloat
@@ -13,8 +14,8 @@ public struct RGBA {
     public let blue: CGFloat
     public let alpha: CGFloat
 
-    /// For the sRGB colorspace, the relative luminance of a color is defined as L = 0.2126 * R + 0.7152 * G + 0.0722 * B where
-    /// and B are defined as:
+    /// For the sRGB colorspace, the relative luminance of a color is defined as
+    /// L = 0.2126 * R + 0.7152 * G + 0.0722 * B
     /// if RsRGB <= 0.03928 then R = RsRGB/12.92 else R = ((RsRGB+0.055)/1.055) ^ 2.4
     /// if GsRGB <= 0.03928 then G = GsRGB/12.92 else G = ((GsRGB+0.055)/1.055) ^ 2.4
     /// if BsRGB <= 0.03928 then B = BsRGB/12.92 else B = ((BsRGB+0.055)/1.055) ^ 2.4
@@ -73,14 +74,14 @@ public struct RGBA {
         return CGColor(colorSpace: colorSpace, components: components)
     }
 
-    public static func +(lhs: RGBA, rhs: RGBA) -> RGBA {
+    public static func + (lhs: RGBA, rhs: RGBA) -> RGBA {
         RGBA(red: lhs.red + rhs.red,
              green: lhs.green + rhs.green,
              blue: lhs.blue + rhs.blue,
              alpha: lhs.alpha + rhs.alpha)
     }
 
-    public static func /(lhs: RGBA, rhs: CGFloat) -> RGBA {
+    public static func / (lhs: RGBA, rhs: CGFloat) -> RGBA {
         RGBA(red: lhs.red / rhs, green: lhs.green / rhs, blue: lhs.blue / rhs, alpha: lhs.alpha / rhs)
     }
 
@@ -88,7 +89,7 @@ public struct RGBA {
 }
 
 extension RGBA: Equatable {
-    public static func ==(lhs: Self, rhs: Self) -> Bool {
+    public static func == (lhs: Self, rhs: Self) -> Bool {
         lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue && lhs.alpha == rhs.alpha
     }
 }

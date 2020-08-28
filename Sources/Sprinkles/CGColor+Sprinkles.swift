@@ -47,7 +47,7 @@ extension CGColor {
     }
 
     public func contrastRatio(between color: CGColor) -> CGFloat? {
-        guard let _ = luminance(), let _ = color.luminance() else { return nil }
+        guard luminance() != nil, color.luminance() != nil else { return nil }
         return rgba.contrastRatio(between: color.rgba)
     }
 
@@ -57,7 +57,7 @@ extension CGColor {
 
     public static func average(colors: [CGColor]) -> CGColor? {
         guard colors.count > 0 else { return nil }
-        let sumRGBA = colors.map{ $0.rgba }.reduce(RGBA.zero, +)
+        let sumRGBA = colors.map { $0.rgba }.reduce(RGBA.zero, +)
         let avgRGBA = sumRGBA / CGFloat(colors.count)
         return avgRGBA.cgColor
     }

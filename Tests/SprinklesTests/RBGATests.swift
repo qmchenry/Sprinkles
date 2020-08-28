@@ -33,4 +33,10 @@ final class RBGATests: XCTestCase {
         XCTAssertEqual(RGBA(red: 0xff/255, green: 0xff/255, blue: 0xff/255, alpha: 0xff/255).hex, "FFFFFFFF")
     }
 
+    let halfGray = RGBA(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+
+    func testLuminosity() {
+        XCTAssertEqual(halfGray.luminance, 0.21586050011389923, accuracy: 0.0000001)
+    }
+
 }

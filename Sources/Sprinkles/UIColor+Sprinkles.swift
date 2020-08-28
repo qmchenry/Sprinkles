@@ -21,7 +21,7 @@ extension UIColor {
 
     public convenience init?(colors: [UIColor]) {
         guard colors.count > 0 else { return nil }
-        let sumRGBA = colors.map{ $0.rgba }.reduce(RGBA.zero, +)
+        let sumRGBA = colors.map { $0.rgba }.reduce(RGBA.zero, +)
         let avgRGBA = sumRGBA / CGFloat(colors.count)
         self.init(rgba: avgRGBA)
     }

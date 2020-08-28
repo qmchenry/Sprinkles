@@ -93,10 +93,9 @@ final class UIImageTests: XCTestCase {
         XCTAssertEqual(pixels[2], color)
     }
 
-    func loadImage(filename: String, _ _extension: String = "png") -> UIImage? {
+    func loadImage(filename: String, extension ext: String = "png") -> UIImage? {
         let bundle = Bundle.module
-        guard let path = bundle.path(forResource: filename, ofType: _extension) else { return nil }
-        print(path)
+        guard let path = bundle.path(forResource: filename, ofType: ext) else { return nil }
         return UIImage(contentsOfFile: path)
     }
 

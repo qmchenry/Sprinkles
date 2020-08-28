@@ -6,13 +6,14 @@ import PackageDescription
 let package = Package(
     name: "Sprinkles",
     platforms: [
-       .iOS(.v10),
+        .iOS(.v10),
+        .macOS(.v10_11)
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
             name: "Sprinkles",
-            targets: ["Sprinkles"]),
+            targets: ["Sprinkles"])
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -31,7 +32,7 @@ let package = Package(
                     // Copy Tests/ExampleTests/Resources directories as-is.
                     // Use to retain directory structure.
                     // Will be at top level in bundle.
-                    .process("Assets"),
-                  ]),
+                    .process("Assets")
+                  ])
     ]
 )
