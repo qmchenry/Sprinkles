@@ -80,8 +80,26 @@ public struct RGBA {
              alpha: lhs.alpha + rhs.alpha)
     }
 
+    public static func - (lhs: RGBA, rhs: RGBA) -> RGBA {
+        RGBA(red: lhs.red - rhs.red,
+             green: lhs.green - rhs.green,
+             blue: lhs.blue - rhs.blue,
+             alpha: lhs.alpha - rhs.alpha)
+    }
+
     public static func / (lhs: RGBA, rhs: CGFloat) -> RGBA {
         RGBA(red: lhs.red / rhs, green: lhs.green / rhs, blue: lhs.blue / rhs, alpha: lhs.alpha / rhs)
+    }
+
+    public static func / (lhs: RGBA, rhs: Int) -> RGBA {
+        lhs / CGFloat(rhs)
+    }
+
+    public static func ~= (lhs: Self, rhs: Self) -> Bool {
+        let accuracy = CGFloat(0.000001)
+        let diff = lhs - rhs
+        return abs(diff.red) < accuracy && abs(diff.green) < accuracy &&
+            abs(diff.blue) < accuracy && abs(diff.alpha) < accuracy
     }
 
     public static let zero = RGBA(red: 0, green: 0, blue: 0, alpha: 0)
