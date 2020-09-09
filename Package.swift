@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.2
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -27,12 +27,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "SprinklesTests",
-            dependencies: ["Sprinkles"],
-            resources: [
-                    // Copy Tests/ExampleTests/Resources directories as-is.
-                    // Use to retain directory structure.
-                    // Will be at top level in bundle.
-                    .process("Assets")
-                  ])
+            dependencies: ["Sprinkles"])
     ]
 )

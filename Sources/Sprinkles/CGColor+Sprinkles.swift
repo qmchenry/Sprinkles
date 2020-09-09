@@ -1,10 +1,11 @@
 //
-//  File.swift
+//  CGColor+Sprinkles.swift
 //  
 //
 //  Created by Quinn McHenry on 8/20/20.
 //
 
+#if canImport(CoreGraphics)
 import CoreGraphics
 
 extension CGColor {
@@ -63,3 +64,5 @@ extension CGColor {
     }
 
 }
+
+#endif

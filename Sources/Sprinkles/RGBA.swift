@@ -5,7 +5,6 @@
 //  Created by Quinn McHenry on 8/20/20.
 //
 
-import CoreGraphics
 import Foundation
 
 public struct RGBA {
@@ -68,11 +67,6 @@ public struct RGBA {
                       lroundf(Float(capped.alpha) * 255))
     }
 
-    public var cgColor: CGColor? {
-        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
-        return CGColor(colorSpace: colorSpace, components: components)
-    }
-
     public static func + (lhs: RGBA, rhs: RGBA) -> RGBA {
         RGBA(red: lhs.red + rhs.red,
              green: lhs.green + rhs.green,
@@ -119,5 +113,15 @@ extension RGBA {
         UIColor(rgba: self)
     }
 }
+#endif
 
+#if canImport(CoreGraphics)
+import CoreGraphics
+
+extension RGBA {
+    public var cgColor: CGColor? {
+        guard let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) else { return nil }
+        return CGColor(colorSpace: colorSpace, components: components)
+    }
+}
 #endif

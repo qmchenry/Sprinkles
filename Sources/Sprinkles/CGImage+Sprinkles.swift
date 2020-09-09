@@ -5,6 +5,7 @@
 //  Created by Quinn McHenry on 8/28/20.
 //
 
+#if canImport(CoreGraphics)
 import CoreGraphics
 
 extension CGImage {
@@ -23,3 +24,5 @@ extension CGImage {
     }
 
 }
+
+#endif
